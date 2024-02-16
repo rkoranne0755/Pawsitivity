@@ -1,0 +1,80 @@
+.main {
+    display: flex;
+    /* background-color: orange; */
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-content: center;
+    background-image: url("backImg.jpg");
+}
+/* .loginimg{
+height: 200px;
+
+} */
+.button{
+    position: relative;
+    bottom: 90px;
+    height: 18%;
+    width: 28%;
+}
+.gmail{
+    display: inline-block;
+   width: 200px; 
+   height: 500px;
+}
+.or{
+    position: relative;
+    bottom: 60px;
+}
+.pawasitivity{
+    width: 175px;
+    position: relative;
+    bottom: 75px;
+}
+.loginImage{
+    position: relative;
+    width: 95px;
+    /* height: 24%; */
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    bottom: 10px;
+}
+.register{
+    display: flex;
+    flex-direction: row-reverse;
+    color: black;
+}
+.email{
+    width: 300px;
+    position: relative;
+    bottom: 100px;
+}
+.pass{
+    width: 300px;
+    position: relative;
+    bottom: 100px;
+}
+
+.login{
+    display: flex;
+    background-color: #FFF8E3;
+    height: 600px;
+    width: 450px;
+    text-align: center;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* box-shadow: 8.0px 16.0px 16.0px hsl(0deg 0% 0% / 0.25);
+    --shadow-color: hsl(220deg 100% 55%); */
+    box-shadow: rgba(17, 17, 26, 0.3) 0px 8px 24px, rgba(17, 17, 26, 0.3) 0px 16px 56px, rgba(17, 17, 26, 0.3) 0px 24px 80px;
+}
+body{
+    margin: 0;
+}

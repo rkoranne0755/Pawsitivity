@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+.page{
+    width: 100vw;
+    height: 100vh;
+    background-color: beige;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly; 
+    align-items:center
+}
+.form-check{
+   padding-top: 1.3rem;
+}
+.registerDiv{
+   display: flex;
+    justify-content: space-around;
+    align-items: center;
+   width: 70%;
+   height: 100%;
+   background-color: beige;
+   overflow: scroll;
+   overflow-x: hidden;
+   /* box-shadow: rgba(17, 17, 26, 0.3) 0px 8px 24px, rgba(17, 17, 26, 0.3) 0px 16px 56px, rgba(17, 17, 26, 0.3) 0px 24px 80px; */
+}
+.btn{
+   position: relative;
+    left: 36%;
+}
+.aboutPawasitivity{
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   position: relative;
+   bottom: 10%;
+   margin: 1.5rem;
+}
+
+.Left{
+   width: 30%;
+   height: 100%;
+    display: flex;
+    background-color: brown;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: center;
+    align-items: center;
+}
+.main-form{
+   position: relative;
+   top: 25%;
+   left: 5%;
+    width: 45%;
+   
+}
+.subForm{
+   display: flex;
+    height: 100%;
+    width: 35%;
+    flex-direction: column;
+    /* align-content: center; */
+    justify-content: center;
+}
+.address{
+   padding-top: 10%;
+   display: flex;
+   justify-content: space-evenly;
+}
+ 
