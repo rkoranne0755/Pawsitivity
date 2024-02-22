@@ -78,7 +78,7 @@ const registerDogTrainer = asyncHandler(async (req, res) => {
 
   req.session.user = trainer;
 
-  return res.redirect("/dogTrainer/dogTrainerProfile")
+  return res.redirect("/dogTrainer/profile")
 });
 
 const loginTrainer = asyncHandler(async (req, res) => {
@@ -107,7 +107,7 @@ const loginTrainer = asyncHandler(async (req, res) => {
 
   req.session.user = dogTrainer;
 
-  return res.redirect("/dogTrainer/dogTrainerProfile")
+  return res.redirect("/dogTrainer/profile")
 });
 
 const logoutTrainer = asyncHandler(async (req, res) => {

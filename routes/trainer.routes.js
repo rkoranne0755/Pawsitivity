@@ -12,21 +12,32 @@ const router = Router();
 router
   .route("/register")
   .get((req, res) => {
-    res.render("registerTrainer");
+    req.session.userType = "DogTrainer";
+    res.render("register", { userType: req.session.userType });
   })
   .post(uploads.single("displayPicture"), registerDogTrainer);
 
 router
   .route("/login")
   .get((req, res) => {
-    res.render("dogTrainerlogin");
+    req.session.userType = "DogTrainer";
+    res.render("login", { userType: "DogTrainer" });
   })
   .post(loginTrainer);
 
-router.route("/dogTrainerProfile").get(isAuth, (req, res) => {
-  res.render("dogTrainerProfile", { user: req.session.user });
+router.route("/profile").get(isAuth, (req, res) => {
+  
+  res.render("profile", { user: req.session.user, userType:"DogTrainer" });
 });
 
 router.route("/logout").get(logoutTrainer);
+
+router.route("/addItem").get(
+  isAuth,
+  (req, res)=>{
+    console.log("Pet Store Add Item Reached!!!");
+    res.render("register",{userType:"AddItem"})
+  }
+)
 
 export default router;

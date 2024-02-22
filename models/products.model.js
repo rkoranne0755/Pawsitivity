@@ -12,7 +12,6 @@ const productSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  description: String,
   productImage: {
     type: String,
     required: true,

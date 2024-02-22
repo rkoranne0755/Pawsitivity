@@ -76,7 +76,7 @@ const registerDogVeterinary = asyncHandler(async (req, res) => {
 
   req.session.user = dogVeterinary;
 
-  return res.redirect("/dogVeterinary/dogVeterinaryProfile");
+  return res.redirect("/dogVeterinary/profile");
 });
 
 const loginDogVeterinary = asyncHandler(async (req, res) => {
@@ -104,7 +104,7 @@ const loginDogVeterinary = asyncHandler(async (req, res) => {
 
   req.session.user = dogVeterinary;
 
-  return res.redirect("/dogVeterinary/dogVeterinaryProfile");
+  return res.redirect("/dogVeterinary/profile");
 });
 
 const logoutDogVeterinary = asyncHandler(async (req, res) => {

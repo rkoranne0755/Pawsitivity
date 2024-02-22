@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/icon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/registration.css">
+    <style>
+      /* Additional CSS for adjusting image size */
+      .pawsitivity-img {
+        width: 200px; /* Adjust the width as needed */
+        height: auto; /* Maintain aspect ratio */
+      }
+    </style>
+    <title>Document</title>
+</head>
+<body >
+      <div class="page">
+        <!-- <h1>Registration Page for Dog parent</h1> -->
+        <div class="Left">
+          <div class="pawsitivity-img">
+            <img src="/images/icon.png" alt="">
+         </div>
+         
+         <div class="aboutPawasitivity">
+            <h2>About Pawasitivity</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam expedita doloribus asperiores eum quis, vitae doloremque commodi harum sit velit repellendus reiciendis enim laudantium illum molestias voluptatibus? Unde, quod nemo.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt voluptatum totam recusandae, aspernatur aperiam odit eligendi est magnam fugit quidem illum obcaecati odio atque cum. Officiis eos necessitatibus illum excepturi.</p>
+         </div>
+        </div>
+        <% if (userType === "DogParent") { %>
+          <div class="registerDiv">
+            <div class="main-form">
+              <div><h1>Register as Dog parent</h1></div>
+              <form
+                action="/dogParent/register"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="form-floating mb-3">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="floatingInput"
+                    name="email"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="username"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="password"
+                  />
+                  <label for="floatingInput">Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="fullName"
+                  />
+                  <label for="floatingInput">Full Name </label>
+                </div>
+                <!-- <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Gender</label>
+                </div> -->
+                <div class="form-floating mb-3">
+                  <input
+                    type="file"
+                   
+                    name="displayPicture"
+                    class="form-control"
+                    id="floatingInputs"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInputs"> Parent Profile Image</label>
+                </div>
+    
+                <div class="form-floating mb-3">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="floatingInput"
+                    name="dateOfBirth"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">DOB</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="contactNo"
+                  />
+                  <label for="floatingInput">Contact Number</label>
+                </div>
+                <!-- <div class="form-floating mb-3">
+                  <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Contact Number</label>
+                </div> -->
+                <div>
+                  <select
+                    class="form-select"
+                    name="gender"
+                    aria-label="Default select example"
+                  >
+                    <option selected>Gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <!-- <option value="3">Three</option> -->
+                  </select>
+                </div>
+    
+                <!-- address div is here -->
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      name="houseNo"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">House No</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      name="street"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Street</label>
+                  </div>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      id="floatingInput"
+                      name="colony"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Colony</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      name="city"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">City</label>
+                  </div>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      id="floatingInput"
+                      name="state"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">State</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Country</label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  Register
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }else if(userType === "DogVeterinary"){ %>
+          <div class="registerDiv">
+            <div class="main-form">
+              <div><h1>Register Youself DOCTOR🙏</h1></div>
+              <form
+                action="/dogVeterinary/register"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="form-floating mb-3">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="floatingInput"
+                    name="email"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="clinicName"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">Clinic Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="password"
+                  />
+                  <label for="floatingInput">Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="qualification"
+                  />
+                  <label for="floatingInput">Qualifications</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="fullName"
+                  />
+                  <label for="floatingInput">Full Name </label>
+                </div>
+                <!-- <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Gender</label>
+                </div> -->
+                <div class="form-floating mb-3">
+                  <input
+                    type="file"
+                   
+                    name="displayPicture"
+                    class="form-control"
+                    id="floatingInputs"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInputs">Profile Image</label>
+                </div>
+    
+                <div class="form-floating mb-3">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="floatingInput"
+                    name="dateOfBirth"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">DOB</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="contactNo"
+                  />
+                  <label for="floatingInput">Contact Number</label>
+                </div>
+                <!-- <div class="form-floating mb-3">
+                  <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Contact Number</label>
+                </div> -->
+                <div>
+                  <select
+                    class="form-select"
+                    name="gender"
+                    aria-label="Default select example"
+                  >
+                    <option selected>Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <!-- <option value="3">Three</option> -->
+                  </select>
+                </div>
+    
+                <!-- address div is here -->
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      name="houseNo"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">House No</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      name="street"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Street</label>
+                  </div>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      id="floatingInput"
+                      name="colony"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Colony</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      name="city"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">City</label>
+                  </div>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      id="floatingInput"
+                      name="state"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">State</label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  Register
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }else if(userType === "PetStore"){ %>
+          <div class="registerDiv">
+            <div class="main-form">
+              <div><h1>Add Store Details</h1></div>
+              <form
+                action="/petStore/register"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    name="storeName"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">Store Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="ownerName"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">Owner Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="email"
+                  />
+                  <label for="floatingInput">Email Address</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="password"
+                  />
+                  <label for="floatingInput">Password</label>
+                </div>
+                <!-- <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Gender</label>
+                </div> -->
+                <div class="form-floating mb-3">
+                  <input
+                    type="file"
+                    name="displayPicture"
+                    class="form-control"
+                    id="floatingInputs"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInputs">Store Image</label>
+                </div>
+    
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="contactNo"
+                  />
+                  <label for="floatingInput">Contact Number</label>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      name="houseNo"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">House No</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      name="street"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Street</label>
+                  </div>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      id="floatingInput"
+                      name="colony"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Colony</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      name="city"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">City</label>
+                  </div>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      id="floatingInput"
+                      name="state"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">State</label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  Register
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }else if(userType === "DogTrainer"){ %>
+          <div class="registerDiv">
+            <div class="main-form">
+              <div><h1>Add Your Details</h1></div>
+              <form
+                action="/dogTrainer/register"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    name="trainingCenterName"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput"> Training Center Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="fullName"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">Trainer's Full Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="email"
+                  />
+                  <label for="floatingInput">Email Address</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="password"
+                  />
+                  <label for="floatingInput">Password</label>
+                </div>
+                <!-- <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Gender</label>
+                </div> -->
+                <div class="form-floating mb-3">
+                  <input
+                    type="date"
+                    name="dateOfBirth"
+                    class="form-control"
+                    id="floatingInputs"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInputs">Date Of Birth</label>
+                </div>
+                <div>
+                  <select
+                    class="form-select"
+                    name="gender"
+                    aria-label="Default select example"
+                  >
+                    <option selected>Gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <!-- <option value="3">Three</option> -->
+                  </select>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="qualification"
+                  />
+                  <label for="floatingInput">Qualification</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="file"
+                    name="displayPicture"
+                    class="form-control"
+                    id="floatingInputs"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInputs">Profile Picture</label>
+                </div>
+    
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    name="contactNo"
+                  />
+                  <label for="floatingInput">Contact Number</label>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      name="houseNo"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">House No</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      name="street"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Street</label>
+                  </div>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      id="floatingInput"
+                      name="colony"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Colony</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      name="city"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">City</label>
+                  </div>
+                </div>
+                <div class="address">
+                  <div class="form-floating mb-3">
+                    <input
+                      type=""
+                      class="form-control"
+                      id="floatingInput"
+                      name="state"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">State</label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  Register
+                </button>
+              </form>
+            </div>
+          </div>
+          <% }else if(userType==="AddDog"){ %>
+            <div class="registerDiv">
+              <div class="main-form">
+                <div><h1>Add Your Dog's Details</h1></div>
+                <form
+                  action="/dogParent/addDog"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="dogName"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">Dog Name</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                      name="dogBreed"
+                    />
+                    <label for="floatingInput">Breed </label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                      name="allergies"
+                    />
+                    <label for="floatingInput">Allergies </label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                      name="disease"
+                    />
+                    <label for="floatingInput">Diesease </label>
+                  </div>
+                  <!-- <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Gender</label>
+                  </div> -->
+                  <div class="form-floating mb-3">
+                    <input
+                      type="file"
+                     
+                      name="displayPicture"
+                      class="form-control"
+                      id="floatingInputs"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInputs"> Dog Profile Image</label>
+                  </div>
+      
+                  <div class="form-floating mb-3">
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="floatingInput"
+                      name="dateOfBirth"
+                      placeholder="name@example.com"
+                    />
+                    <label for="floatingInput">DOB Of Your Dog</label>
+                  </div>
+                  <!-- <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Contact Number</label>
+                  </div> -->
+                  <div>
+                    <select
+                      class="form-select"
+                      name="gender"
+                      aria-label="Default select example"
+                    >
+                      <option selected>Dog's Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <!-- <option value="3">Three</option> -->
+                    </select>
+                  </div>
+      
+                  <!-- address div is here -->
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    Add Dog
+                  </button>
+                </form>
+              </div>
+            </div>
+          <% }else if(userType === "AddItem"){%>
+            <div class="registerDiv">
+              <div class="main-form">
+                <div><h1>Add Your Product's Details</h1></div>
+                <form
+                  action="/petStore/addItem"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                <div class="form-floating mb-3">
+                  <input type="text" 
+                  name="productName"
+                  class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Product Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" name="cost"
+                  placeholder="name@example.com">
+                  <label for="floatingInput">Cost</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="date" class="form-control" id="floatingInput" name="manufacturingDate"  placeholder="name@example.com">
+                  <label for="floatingInput">Manufaturing Date</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="date" class="form-control" id="floatingInput" name="expiryDate" placeholder="name@example.com">
+                  <label for="floatingInput">Expiry Date</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" name="productImage" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput"> Product Image</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text"  class="form-control" name="stock" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Stock</label>
+                </div>
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    Add Product
+                  </button>
+                </form>
+              </div>
+            </div>
+            <%}else{%>
+              <h1>Error</h1>
+              <% } %>
+         
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>   
+</body>
+</html>

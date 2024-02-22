@@ -4,6 +4,10 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const dogParentSchema = new mongoose.Schema({
+  userType: {
+    type: String,
+    default: "DogParent",
+  },
   username: {
     type: String,
     required: true,

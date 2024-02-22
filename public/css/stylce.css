@@ -3,29 +3,35 @@
     padding: 0;
 }
 
+#page {
+    height: 100vh;
+    width: 100%;
+}
+
 #main {
     padding-top: 150px;
     padding-left: 20px;
 }
 
 #profile {
-    position: absolute;
+    /* position: absolute; */
+    width: 100%;
 }
 
-#dog-profile-1 {
+/* #dog-profile-1 {
     margin-left: 21rem;
-    position: absolute;
-}
+    /* position: absolute; */
+/* } */ */
 
 #dog-profile-2 {
     margin-left: 43rem;
 }
 
 #dog-profile-3 {
-    height: 120px;
-    margin-left: 21rem;
-    margin-top: 30px;
-    position: absolute;
+    height: 150px;
+    /* margin-left: 21rem;
+    margin-top: 30px; */
+    /* position: absolute; */
 }
 
 #addnew-dog {
@@ -103,19 +109,18 @@
 }
 
 .sidebar {
-    margin-left: 1064px;
+    margin-left: 80%;
     padding: 0;
-    width: 300px;
-    height: 700px;
+    width: 20%;
+    height: 100vh;
     background-color: #FDF4F5;
     position: absolute;
-    height: 100%;
     overflow: auto;
 }
 
 .dd-btn {
-    align-items: center;
-    width: 300px;
+    align-items: center;    
+    width: 100%;
     background-color: #ffffff;
     height: 50px;
     border-top: none;
@@ -126,7 +131,7 @@
 }
 
 .menu {
-    width: 300px;
+    width: 100%;
 }
 
 .dog-img{
@@ -154,11 +159,13 @@
     margin-bottom: 0;
 }
 
+.container {
+    width: 80%;
+    margin: 0;
+}
+
 .navbar{
     display: inline-block;
     position: fixed;
-    width: 1000px;
-}
-.cusotm{
-    float: left;
+    width: 80%;
 }

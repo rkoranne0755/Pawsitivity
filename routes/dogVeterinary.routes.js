@@ -13,14 +13,16 @@ const router = Router();
 router
   .route("/login")
   .get((req, res) => {
-    res.render("dogVeterinarylogin");
+    req.session.userType = "DogVeterinary"
+    res.render("login",{userType:"DogVaterinary"});
   })
   .post(loginDogVeterinary);
 
 router
-  .route("/registerDogVeterinary")
+  .route("/register")
   .get((req, res) => {
-    res.render("registerDogVeterinary");
+    req.session.userType = "DogVeterinary"
+    res.render("register",{userType:req.session.userType});
   })
   .post(
     uploads.single("displayPicture"),
@@ -33,13 +35,13 @@ router
 
 router.route("/logout").get(logoutDogVeterinary);
 
-router.route("/dogVeterinaryProfile").get(isAuth, (req, res) => {
+router.route("/profile").get(isAuth, (req, res) => {
   console.log("Doctor profile visited");
   const user = DogVeterinary.findById({ _id: req.session.user._id }).select(
     "-password"
   );
   // console.log(user);
-  res.render("dogVeterinaryProfile", { user: req.session.user });
+  res.render("profile", { user: req.session.user, userType:"DogVeterinary" });
 });
 
 export default router;

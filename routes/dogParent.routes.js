@@ -10,15 +10,15 @@ import uploads from "../middlewares/multer.middleware.js";
 import { isAuth } from "../middlewares/isAuth.middleware.js";
 import { DogParent } from "../models/dogParent.model.js";
 
-function calculateAge(dateOfBirth){
+function calculateAge(dateOfBirth) {
   const dob = new Date(dateOfBirth);
   const today = new Date();
 
   let age = today.getFullYear() - dob.getFullYear();
-  const monthDiff = today.getMonth()- dob.getMonth();
+  const monthDiff = today.getMonth() - dob.getMonth();
 
-  if(monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())){
-    age --;
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+    age--;
   }
 
   return age;
@@ -27,41 +27,51 @@ function calculateAge(dateOfBirth){
 const router = Router();
 
 router
-  .route("/registerDogParent")
+  .route("/register")
   .get((req, res) => {
-    res.render("registerDogParent");
+    req.session.userType = "DogParent";
+    res.render("register", { userType: req.session.userType });
   })
   .post(uploads.single("displayPicture"), registerDogParent);
 
 router
   .route("/login")
   .get((req, res) => {
-    res.render("dogParentlogin");
+    req.session.userType = "DogParent";
+    res.render("login", { userType: "DogParent" });
   })
   .post(loginDogParent);
 
 // secured routes
 
-router.route("/logout").get(logoutDogParent);
+router.route("/logout").get(
+  isAuth,
+  (req, res, next) => {
+    console.log("Dog Parent Logout Called!!!");
+    next();
+  },
+  logoutDogParent
+);
 
 router.route("/refresh-token").post(refreshAccessToken);
 
-router.route("/dogParentProfile").get(isAuth, async (req, res) => {
-  
+router.route("/profile").get(isAuth, async (req, res) => {
   const parent = await DogParent.findById({ _id: req.session.user._id })
     .populate("dogs")
     .select("-password");
   // console.log(parent);
 
   // age = calculateAge()
+  console.log("Dog Parent Profile visited");
+  console.log(parent);
 
-  res.render("dogParentprofile", { user: parent });
+  res.render("profile", { user: parent, userType: "DogParent" });
 });
 
 router
   .route("/addDog")
   .get(isAuth, (req, res) => {
-    res.render("registerDog");
+    res.render("register", {userType:"AddDog"});
   })
   .post(isAuth, uploads.single("displayPicture"), addDog);
 

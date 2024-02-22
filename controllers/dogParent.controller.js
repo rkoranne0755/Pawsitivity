@@ -118,7 +118,7 @@ const registerDogParent = asyncHandler(async (req, res) => {
 
   req.session.user = user;
 
-  return res.redirect("/dogParent/dogParentProfile");
+  return res.redirect("/dogParent/profile");
 });
 
 const loginDogParent = asyncHandler(async (req, res) => {
@@ -172,7 +172,7 @@ const loginDogParent = asyncHandler(async (req, res) => {
   req.session.user = dogParent;
   console.log(req.session.user);
 
-  return res.redirect("/dogParent/dogParentProfile");
+  return res.redirect("/dogParent/profile");
   // .redirect("/register");
 });
 
@@ -283,17 +283,17 @@ const addDog = asyncHandler(async (req, res) => {
     allergies,
     gender,
     displayPicture,
-    parent:req.session.user._id
-  })
+    parent: req.session.user._id,
+  });
 
-  const parent = await DogParent.findById({_id:req.session.user._id})
+  const parent = await DogParent.findById({ _id: req.session.user._id });
 
   parent.dogs.push(userDog._id);
   await parent.save();
 
   console.log("Dog Added SuccesFully!!!");
 
-  return res.redirect("/dogparent/dogParentProfile")
+  return res.redirect("/dogparent/profile");
 });
 
 export {
@@ -301,5 +301,5 @@ export {
   loginDogParent,
   logoutDogParent,
   refreshAccessToken,
-  addDog
+  addDog,
 };

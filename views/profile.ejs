@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/stylce.css">
+    <title>Profile</title>
+</head>
+
+<body>
+    <div id="page">
+        <div>
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="/images/pawasitivity.png" alt="Logo" width="280" height="55"
+                            class="d-inline-block align-text-top">
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <% if (userType === "DogParent") { %>
+            <div class="sidebar">
+                <div class="drop">
+                    <a href="/dogParent/logout">Logout</a>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Parent
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Shops
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Doctor
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="d-inline-block card"id="profile">
+                                <div id="profile-img-div">
+                                    <img src="/temp/<%= user.displayPicture %>" alt="profile-img" id="profile-img">
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title">@<%= user.username %></h3>
+                                    <h5 class="card-title"><%= user.fullName %></h5>
+                                    <p class="card-text"><%= user.houseNo %>, <%= user.street %></br><%= user.colony %>, <%= user.city %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row my-2">
+                                <% user.dogs.forEach((dog) => { %>
+                                    <div class="col">
+                                        <div class="card" style="width: 20rem;" id="dog-profile-2">
+                                            <div>
+                                                <div class="dog-img-div">
+                                                    <img src="/temp/<%= dog.displayPicture %>" alt="profile-img" class="dog-img">
+                                                </div>
+                                                <div class="card-body dog-card-body">
+                                                    <h3 class="card-title">Name: <%= dog.dogName %></h3>
+                                                    <p class="card-text %">Breed: <%= dog.dogBreed %></p>
+                                                    <p class="card-text">Gender: <%= dog.gender %></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                                <div class="col">
+                                    <div class="card" style="width: 20rem;" id="dog-profile-3">
+                                        <a href="/dogParent/addDog">Click to Add Details of Your Dog.</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                       
+            </div>
+          <% }else if(userType === "DogVeterinary"){ %>
+            <div class="sidebar">
+                <div class="drop">
+                    <a href="/dogVeterinary/logout">Logout</a>
+                    <div class="dropdown">
+                       <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Parent
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Shops
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Doctor
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="d-inline-block card"id="profile">
+                                <div id="profile-img-div">
+                                    <img src="/temp/<%= user.displayPicture %>" alt="profile-img" id="profile-img">
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title">@<%= user.clinicName %></h3>
+                                    <h5 class="card-title"><%= user.fullName %></h5>
+                                    <p class="card-text"><%= user.houseNo %>, <%= user.street %></br><%= user.colony %>, <%= user.city %></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>                       
+            </div>
+          <% }else if(userType === "PetStore"){ %>
+            <div class="sidebar">
+                <div class="drop">
+                    <a href="/petStore/logout">Logout</a>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Parent
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Shops
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Doctor
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="d-inline-block card"id="profile">
+                                <div id="profile-img-div">
+                                    <img src="/temp/<%= user.displayPicture %>" alt="profile-img" id="profile-img">
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title"><%= user.storeName %></h3>
+                                    <h5 class="card-title"><%= user.ownerName %></h5>
+                                    <h5 class="card-title">+91 <%= user.contactNo %></h5>
+                                    <h6 class="card-text"><%= user.houseNo %>, <%= user.street %></br><%= user.colony %>, <%= user.city %></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <% user.productListed.forEach((element) => { %>
+                                <div class="card" style="width: 20rem;" id="dog-profile-2">
+                                    <div>
+                                        <div class="dog-img-div">
+                                            <img src="/temp/<%= element.productImage %>" alt="profile-img" class="dog-img">
+                                        </div>
+                                        <div class="card-body dog-card-body">
+                                            <h3 class="card-title"><%= element.productName %></h3>
+                                            <h5 class="card-text">Price: ₹<%= element.cost %></h5p>
+                                            <h6 class="card-text">Mfg: <%=new Date(element.manufacturingDate).toLocaleDateString()%></h6>
+                                            <h6 class="card-text">Exp: <%= new Date(element.expiryDate).toLocaleDateString()%></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                            <div class="row my-2">
+                                <div class="col">
+                                    <div class="card" style="width: 20rem;" id="dog-profile-3">
+                                        <% if (user.productListed.length===0) { %>
+                                            <a href="/petStore/addItem">Click to add Products.</a>
+                                        <% }else{ %>
+                                            <a href="/petStore/addItem">Click To add more Products.</a>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                       
+            </div>
+          <% }else if(userType === "DogTrainer"){ %>
+            <div class="sidebar">
+                <div class="drop">
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Parent
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Shops
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Doctor
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="d-inline-block card"id="profile">
+                                <div id="profile-img-div">
+                                    <img src="/temp/<%=user.displayPicture%>" alt="profile-img" id="profile-img">
+                                </div>
+                                <div class="card-body">
+                                    <h2 class="card-title"><%= user.trainingCenterName %></h2>
+                                    <h5 class="card-title"><%= user.fullName%></h5>
+                                    <h5 class="card-title">+91 <%= user.contactNo%></h5>
+                                    <p class="card-text"><%= user.houseNo %>, <%= user.street %></br><%= user.colony %>, <%= user.city %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h1 style="text-align: center;">Services Provided:</h1>
+                            <div class="row my-2">
+                                    <div class="col">
+                                        <div class="card" style="width: 20rem; margin: 5px;" id="dog-profile-2">
+                                            <div>
+                                                <div class="dog-img-div">
+                                                    <img src="/images/basic_ob_tr.jpeg" alt="profile-img" class="dog-img">
+                                                </div>
+                                                <div class="card-body dog-card-body">
+                                                    <h6 class="card-title">Basic Obedience Training</h6>
+                                                    <p class="card-text %">Charges: </p>
+                                                    <p class="card-text %">Time Period:  </p>
+                                                    <p class="card-text %">Rating: 3.5⭐ </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="card" style="width: 20rem; margin: 5px;" id="dog-profile-2">
+                                            <div>
+                                                <div class="dog-img-div">
+                                                    <img src="/images/boarding.jpeg" alt="profile-img" class="dog-img">
+                                                </div>
+                                                <div class="card-body dog-card-body">
+                                                    <h6 class="card-title">Dog Boarding And Training. </h6>
+                                                    <p class="card-text %">Charges: </p>
+                                                    <p class="card-text %">Time Period:  </p>
+                                                    <p class="card-text %">Rating: 4.5⭐ </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="card" style="width: 20rem; margin: 5px;" id="dog-profile-2">
+                                            <div>
+                                                <div class="dog-img-div">
+                                                    <img src="/images/group clases.jpeg" alt="profile-img" class="dog-img">
+                                                </div>
+                                                <div class="card-body dog-card-body">
+                                                    <h6 class="card-title">Group Classes</h6>
+                                                    <p class="card-text %">Charges: </p>
+                                                    <p class="card-text %">Time Period:  </p>
+                                                    <p class="card-text %">Rating: 3⭐ </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="card" style="width: 20rem; margin: 5px;" id="dog-profile-2">
+                                            <div>
+                                                <div class="dog-img-div">
+                                                    <img src="/images/therepy.jpeg" alt="profile-img" class="dog-img">
+                                                </div>
+                                                <div class="card-body dog-card-body">
+                                                    <h6 class="card-title">Dog therepy</h6>
+                                                    <p class="card-text %">Charges: </p>
+                                                    <p class="card-text %">Time Period:  </p>
+                                                    <p class="card-text %">Rating: 4.7⭐ </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                       
+            </div>
+            <% }else{ %>
+              <H1>Error</H1>
+            <% }%>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+<script src="https://kit.fontawesome.com/31998d0ab6.js" crossorigin="anonymous"></script>
+
+</html>
