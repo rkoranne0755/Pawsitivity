@@ -14,6 +14,7 @@ const registerDogVeterinary = asyncHandler(async (req, res) => {
     street,
     colony,
     city,
+    qualification,
     state,
     contactNo,
     displayPicture,
@@ -33,6 +34,7 @@ const registerDogVeterinary = asyncHandler(async (req, res) => {
     state,
     contactNo,
     displayPicture,
+    qualification
   ].forEach((ele) => {
     if (ele === "" || ele === undefined) {
       throw new ApiError(400, "All Fields are required!");
@@ -68,6 +70,7 @@ const registerDogVeterinary = asyncHandler(async (req, res) => {
     state,
     contactNo,
     displayPicture,
+    qualification
   });
 
   if (dogVeterinary) {

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 import jwt from "jsonwebtoken";
+import {Appointment} from "./appointment.model.js"
 import bcrypt from "bcrypt";
 
 const veterinarySchema = new mongoose.Schema({
@@ -21,11 +22,10 @@ const veterinarySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  qualification: [
-    {
-      type: String,
-    },
-  ],
+  qualification: {
+    type: String,
+    required: true,
+  },
   houseNo: {
     type: String,
   },
@@ -57,6 +57,12 @@ const veterinarySchema = new mongoose.Schema({
         `${props.value} is not a valid 10-digit mobile number!`,
     },
   },
+  appointments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Appointment",
+    },
+  ],
 });
 
 veterinarySchema.plugin(mongooseAggregatePaginate);

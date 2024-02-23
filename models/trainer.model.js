@@ -34,11 +34,6 @@ const trainerSchema = new mongoose.Schema({
       type: String,
     },
   ],
-  services: [
-    {
-      type: String,
-    },
-  ],
   houseNo: {
     type: String,
   },

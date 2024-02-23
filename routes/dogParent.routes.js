@@ -5,6 +5,8 @@ import {
   logoutDogParent,
   refreshAccessToken,
   registerDogParent,
+  profileController,
+  visitedProfileController,
 } from "../controllers/dogParent.controller.js";
 import uploads from "../middlewares/multer.middleware.js";
 import { isAuth } from "../middlewares/isAuth.middleware.js";
@@ -55,23 +57,14 @@ router.route("/logout").get(
 
 router.route("/refresh-token").post(refreshAccessToken);
 
-router.route("/profile").get(isAuth, async (req, res) => {
-  const parent = await DogParent.findById({ _id: req.session.user._id })
-    .populate("dogs")
-    .select("-password");
-  // console.log(parent);
+router.route("/profile").get(isAuth, profileController);
 
-  // age = calculateAge()
-  console.log("Dog Parent Profile visited");
-  console.log(parent);
-
-  res.render("profile", { user: parent, userType: "DogParent" });
-});
+router.route("/profile/:userType/:id").get(isAuth, visitedProfileController);
 
 router
   .route("/addDog")
   .get(isAuth, (req, res) => {
-    res.render("register", {userType:"AddDog"});
+    res.render("register", { userType: "AddDog" });
   })
   .post(isAuth, uploads.single("displayPicture"), addDog);
 

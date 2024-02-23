@@ -13,16 +13,16 @@ const router = Router();
 router
   .route("/login")
   .get((req, res) => {
-    req.session.userType = "DogVeterinary"
-    res.render("login",{userType:"DogVaterinary"});
+    req.session.userType = "DogVeterinary";
+    res.render("login", { userType: "DogVaterinary" });
   })
   .post(loginDogVeterinary);
 
 router
   .route("/register")
   .get((req, res) => {
-    req.session.userType = "DogVeterinary"
-    res.render("register",{userType:req.session.userType});
+    req.session.userType = "DogVeterinary";
+    res.render("register", { userType: req.session.userType });
   })
   .post(
     uploads.single("displayPicture"),
@@ -35,13 +35,25 @@ router
 
 router.route("/logout").get(logoutDogVeterinary);
 
-router.route("/profile").get(isAuth, (req, res) => {
+router.route("/profile").get(isAuth, async (req, res) => {
   console.log("Doctor profile visited");
-  const user = DogVeterinary.findById({ _id: req.session.user._id }).select(
-    "-password"
-  );
+  const user = await DogVeterinary.findById({ _id: req.session.user._id })
+    .populate("appointments")
+    .select("-password");
+
+  const nearByDoctors = [];
+  const nearByParents = [];
+  const nearByTrainers = [];
+  const nearByStores = [];
   // console.log(user);
-  res.render("profile", { user: req.session.user, userType:"DogVeterinary" });
+  res.render("profile", {
+    user,
+    userType: "DogVeterinary",
+    nearByDoctors,
+    nearByParents,
+    nearByStores,
+    nearByTrainers,
+  });
 });
 
 export default router;

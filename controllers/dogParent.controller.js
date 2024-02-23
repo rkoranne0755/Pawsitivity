@@ -1,9 +1,15 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
+
 import { DogParent } from "../models/dogParent.model.js";
+import { Trainer } from "../models/trainer.model.js";
+import { PetStore } from "../models/petStore.model.js";
+import { DogVeterinary } from "../models/dogVeterinary.model.js";
+import { Dogs } from "../models/dog.model.js";
+
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+
 import jwt from "jsonwebtoken";
-import { Dogs } from "../models/dog.model.js";
 
 const generateAccessAndRefreshToken = async (parentId) => {
   try {
@@ -24,6 +30,7 @@ const generateAccessAndRefreshToken = async (parentId) => {
 };
 
 const registerDogParent = asyncHandler(async (req, res) => {
+  console.log("\nParent Registration Called: \n");
   // get userDetails from req.body
   // vaidation
   // check is user exists
@@ -82,8 +89,6 @@ const registerDogParent = asyncHandler(async (req, res) => {
   }
   console.log("checked if user exist or not");
 
-  // checks for displayPicture
-
   // create user Object
   const dogParent = await DogParent.create({
     username: username.toLowerCase(),
@@ -138,6 +143,8 @@ const loginDogParent = asyncHandler(async (req, res) => {
   // console.log(req.body.email);
   // console.log(username);
 
+  console.log("\n Parent Login Called\n");
+
   if (!(email || username)) {
     throw new ApiError(400, "Username or Email Required!!!");
   }
@@ -162,7 +169,7 @@ const loginDogParent = asyncHandler(async (req, res) => {
 
   // dogParent.refreshToken = refreshToken;
 
-  console.log(dogParent);
+  // console.log(dogParent);
 
   // const option = {
   //   httpOnly: true,
@@ -170,7 +177,7 @@ const loginDogParent = asyncHandler(async (req, res) => {
   // };
 
   req.session.user = dogParent;
-  console.log(req.session.user);
+  // console.log(req.session.user);
 
   return res.redirect("/dogParent/profile");
   // .redirect("/register");
@@ -193,6 +200,8 @@ const logoutDogParent = asyncHandler(async (req, res) => {
   //   httpOnly: true,
   //   secure: true,
   // };
+
+  console.log("\n Parent Logout Called\n");
 
   req.session.destroy((err) => {
     if (err) {
@@ -251,6 +260,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 });
 
 const addDog = asyncHandler(async (req, res) => {
+  console.log("\nParent addDog Called\n");
   const {
     dogName,
     dogBreed,
@@ -296,10 +306,175 @@ const addDog = asyncHandler(async (req, res) => {
   return res.redirect("/dogparent/profile");
 });
 
+const profileController = asyncHandler(async (req, res) => {
+  const parent = await DogParent.findById({ _id: req.session.user._id })
+    .populate("dogs")
+    .select("-password");
+  console.log("\n Parent Profile Visited\n");
+
+  const nearByParents = await DogParent.find({
+    $and: [
+      {
+        $or: [{ street: parent.street }, { colony: parent.colony }],
+      },
+      {
+        _id: { $ne: parent._id },
+      },
+    ],
+  }).select("_id username");
+
+  const nearByTrainers = await Trainer.find({
+    $and: [
+      {
+        $or: [{ street: parent.street }, { colony: parent.colony }],
+      },
+    ],
+  }).select("_id trainingCenterName");
+
+  const nearByDoctors = await DogVeterinary.find({
+    $and: [
+      {
+        $or: [{ street: parent.street }, { colony: parent.colony }],
+      },
+    ],
+  }).select("_id clinicName");
+
+  const nearByStores = await PetStore.find({
+    $and: [
+      {
+        $or: [{ street: parent.street }, { colony: parent.colony }],
+      },
+    ],
+  }).select("_id storeName");
+
+  // console.log(nearByParents);
+  // console.log(nearByTrainers);
+  // console.log(nearByDoctors);
+  // console.log(nearByStores);
+
+  return res.render("profile", {
+    user: parent,
+    userType: "DogParent",
+    nearByParents,
+    nearByTrainers,
+    nearByDoctors,
+    nearByStores,
+    visitor: false,
+  });
+});
+
+const visitedProfileController = asyncHandler(async (req, res) => {
+  const _id = req.params.id;
+  const userType = req.params.userType;
+
+  const nearByDoctors = await DogVeterinary.find({
+    $and: [
+      {
+        $or: [
+          { street: req.session.user.street },
+          { colony: req.session.user.colony },
+        ],
+      },
+    ],
+  }).select("_id clinicName");
+
+  const nearByParents = await DogParent.find({
+    $and: [
+      {
+        $or: [
+          { street: req.session.user.street },
+          { colony: req.session.user.colony },
+        ],
+      },
+      {
+        _id: {
+          $nin: [req.session.user._id],
+        },
+      },
+    ],
+  }).select("_id username");
+
+  const nearByStores = await PetStore.find({
+    $and: [
+      {
+        $or: [
+          { street: req.session.user.street },
+          { colony: req.session.user.colony },
+        ],
+      },
+    ],
+  }).select("_id storeName");
+
+  const nearByTrainers = await Trainer.find({
+    $and: [
+      {
+        $or: [
+          { street: req.session.user.street },
+          { colony: req.session.user.colony },
+        ],
+      },
+    ],
+  }).select("_id trainingCenterName");
+
+  switch (userType) {
+    case "DogParent":
+      const parent = await DogParent.find({ _id })
+        .populate("dogs")
+        .select("-password -contactNo");
+
+      // console.log("pidop");
+      // console.log(parent);
+      // console.log(parent[0]._id);
+
+      const filteredNearByParent = nearByParents.filter(
+        (item) => item._id.toString() !== parent[0]._id.toString()
+      );
+
+      return res.render("profile", {
+        user: parent[0],
+        userType,
+        nearByDoctors,
+        nearByParents: filteredNearByParent,
+        nearByStores,
+        nearByTrainers,
+        visitor: true,
+      });
+      break;
+
+    case "PetStore":
+      const store = await PetStore.find({
+        _id,
+      })
+      .populate("productListed")
+      .select("-password");
+
+      const filteredNearByStore = nearByStores.filter(
+        (item) => item._id.toString() !== store[0]._id.toString()
+      );
+
+      return res.render("profile", {
+        user: store[0],
+        userType,
+        nearByDoctors,
+        nearByParents,
+        nearByTrainers,
+        nearByStores: filteredNearByStore,
+        visitor: true,
+      });
+
+      break;
+
+    default:
+      break;
+  }
+});
+
 export {
   registerDogParent,
   loginDogParent,
   logoutDogParent,
   refreshAccessToken,
   addDog,
+  profileController,
+  visitedProfileController,
 };

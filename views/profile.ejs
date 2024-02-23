@@ -26,38 +26,74 @@
         <% if (userType === "DogParent") { %>
             <div class="sidebar">
                 <div class="drop">
-                    <a href="/dogParent/logout">Logout</a>
+                    <br>
+                    <a style="text-align: center;" href="/dogParent/logout">Logout</a>
+                    <br>
+                    <% if (visitor) { %>
+                        <br>
+                        <a style="text-align: center;" href="/dogParent/profile">Back To Profile</a>
+                        <br>
+                    <% } %>
+                    <br>
                     <div class="dropdown">
                         <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Near By Parent
                         </button>
                         <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <% if (nearByParents.length === 0) { %>
+                                <li style="text-align: center;">No near by Parents found!!!</li>
+                            <% }else{ %>
+                            <% nearByParents.forEach(parent => { %>
+                                <li><a class="dropdown-item" href="/dogParent/profile/DogParent/<%= parent._id %>"><h6>@<%= parent.username%></h6></a></li>
+                            <% }) %>
+                            <% } %>
                         </ul>
                     </div>
                     <div class="dropdown">
                         <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Near By Shops
+                            Near By Stores
                         </button>
                         <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <% if (nearByStores.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No nearby Stores found!!!</a></li>
+                            <% }else{ %>
+                                <% nearByStores.forEach(store => { %>
+                           <li><a class="dropdown-item" href="/dogParent/profile/PetStore/<%= store._id %>"><h6><%= store.storeName%></h6></a></li>
+                                    <% }) %>
+                                <% } %>
                         </ul>
                     </div>
                     <div class="dropdown">
                         <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Near By Doctor
+                            Near By Trainers
                         </button>
                         <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <% if (nearByTrainers.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Trainer found!!!</a></li>
+                                <% }else{ %>
+                                    <% nearByTrainers.forEach( trainer => { %>
+                                        <li><a class="dropdown-item" href="/dogParent/profile/DogTrainer/<%= trainer._id %>"><h6><%= trainer.trainingCenterName %></h6></a></li>
+                                <% }) %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Doctors
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <% if (nearByDoctors.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Doctor found!!!</a></li>
+                                <% }else{ %>
+                                    <% nearByDoctors.forEach( doctor => { %>
+                                        <li><a class="dropdown-item" href="/dogParent/profile/Veterinary/<%= doctor._id %>"><h6><%= doctor.clinicName %></h6></a></li>
+                                 
+                                <% }) %>
+                            <% } %>
                         </ul>
                     </div>
                 </div>
@@ -79,9 +115,11 @@
                         </div>
                         <div class="col">
                             <div class="row my-2">
+                                <% if (user && user.dogs && user.dogs.length>0) { %>
+                                 
                                 <% user.dogs.forEach((dog) => { %>
                                     <div class="col">
-                                        <div class="card" style="width: 20rem;" id="dog-profile-2">
+                                        <div class="card" style="width: 20rem; " id="dog-profile-2">
                                             <div>
                                                 <div class="dog-img-div">
                                                     <img src="/temp/<%= dog.displayPicture %>" alt="profile-img" class="dog-img">
@@ -95,8 +133,10 @@
                                         </div>
                                     </div>
                                 <% }) %>
+
+                                <% } %>
                                 <div class="col">
-                                    <div class="card" style="width: 20rem;" id="dog-profile-3">
+                                    <div class="card" style="width: 20rem;margin-top: 10px;" id="dog-profile-3">
                                         <a href="/dogParent/addDog">Click to Add Details of Your Dog.</a>
                                     </div>
                                 </div>
@@ -108,38 +148,66 @@
           <% }else if(userType === "DogVeterinary"){ %>
             <div class="sidebar">
                 <div class="drop">
-                    <a href="/dogVeterinary/logout">Logout</a>
+                    <a href="/dogParent/logout">Logout</a>
                     <div class="dropdown">
-                       <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Near By Parent
                         </button>
                         <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <% if (nearByParents.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Parents found!!!</a></li>
+                            <% }else{ %>
+                            <% nearByParents.forEach(parent => { %>
+                                <li><a class="dropdown-item" href="/dogParent/profile/nearByParent/<%= parent._id %>"><h6>@<%= parent.username%></h6></a></li>
+                            <% }) %>
+                            <% } %>
                         </ul>
                     </div>
                     <div class="dropdown">
                         <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Near By Shops
+                            Near By Stores
                         </button>
                         <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <% if (nearByStores.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No nearby Stores found!!!</a></li>
+                            <% }else{ %>
+                                <% nearByStores.forEach(store => { %>
+                           <li><a class="dropdown-item" href="/dogParent/profile/nearByStore/<%= store._id %>"><h6><%= store.storeName%></h6></a></li>
+                                    <% }) %>
+                                <% } %>
                         </ul>
                     </div>
                     <div class="dropdown">
                         <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Near By Doctor
+                            Near By Trainers
                         </button>
                         <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <% if (nearByTrainers.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Trainer found!!!</a></li>
+                                <% }else{ %>
+                                    <% nearByTrainers.forEach( trainer => { %>
+                                        <li><a class="dropdown-item" href="/dogParent/profile/:nearByTrainer/<%= trainer._id %>"><h6><%= trainer.trainingCenterName %></h6></a></li>
+                                <% }) %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Doctors
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <% if (nearByDoctors.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Doctor found!!!</a></li>
+                                <% }else{ %>
+                                    <% nearByDoctors.forEach( doctor => { %>
+                                        <li><a class="dropdown-item" href="/dogParent/profile/:nearByDoctor/<%= doctor._id %>"><h6><%= doctor.clinicName %></h6></a></li>
+                                 
+                                <% }) %>
+                            <% } %>
                         </ul>
                     </div>
                 </div>
@@ -153,95 +221,157 @@
                                     <img src="/temp/<%= user.displayPicture %>" alt="profile-img" id="profile-img">
                                 </div>
                                 <div class="card-body">
-                                    <h3 class="card-title">@<%= user.clinicName %></h3>
+                                    <h3 class="card-title"><%= user.clinicName %></h3>
                                     <h5 class="card-title"><%= user.fullName %></h5>
-                                    <p class="card-text"><%= user.houseNo %>, <%= user.street %></br><%= user.colony %>, <%= user.city %></p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>                       
-            </div>
-          <% }else if(userType === "PetStore"){ %>
-            <div class="sidebar">
-                <div class="drop">
-                    <a href="/petStore/logout">Logout</a>
-                    <div class="dropdown">
-                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Near By Parent
-                        </button>
-                        <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown">
-                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Near By Shops
-                        </button>
-                        <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown">
-                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Near By Doctor
-                        </button>
-                        <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="main">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="d-inline-block card"id="profile">
-                                <div id="profile-img-div">
-                                    <img src="/temp/<%= user.displayPicture %>" alt="profile-img" id="profile-img">
-                                </div>
-                                <div class="card-body">
-                                    <h3 class="card-title"><%= user.storeName %></h3>
-                                    <h5 class="card-title"><%= user.ownerName %></h5>
                                     <h5 class="card-title">+91 <%= user.contactNo %></h5>
                                     <h6 class="card-text"><%= user.houseNo %>, <%= user.street %></br><%= user.colony %>, <%= user.city %></h6>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <% user.productListed.forEach((element) => { %>
-                                <div class="card" style="width: 20rem;" id="dog-profile-2">
-                                    <div>
-                                        <div class="dog-img-div">
-                                            <img src="/temp/<%= element.productImage %>" alt="profile-img" class="dog-img">
+
+                            <% if (user.appointments.length===0) { %>
+                             <h1 style="text-align: center;">No Appointments.</h1>
+                             <% } else{%>
+                                <div class="row my-2">
+                                    <% user.appointments.forEach((element) => { %>
+                                        <div class="col">
+                                            <div class="card" style="width: 20rem; margin: 5px;" id="dog-profile-2">
+                                                <div>
+                                                    <div class="dog-img-div">
+                                                        <img src="/images/appointments.jpeg" alt="profile-img" class="dog-img">
+                                                    </div>
+                                                    <div class="card-body dog-card-body">
+                                                        <h6 class="card-title"><%= element.dogName %></h6>
+                                                        <p class="card-text %"><%= element.dogBreed %></p>
+                                                        <p class="card-text %"><%= element.appointmentDate %> <%= element.appointmentTime %></p>
+                                                        <p class="card-text %"><%= element.reason %> </p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="card-body dog-card-body">
-                                            <h3 class="card-title"><%= element.productName %></h3>
-                                            <h5 class="card-text">Price: ₹<%= element.cost %></h5p>
-                                            <h6 class="card-text">Mfg: <%=new Date(element.manufacturingDate).toLocaleDateString()%></h6>
-                                            <h6 class="card-text">Exp: <%= new Date(element.expiryDate).toLocaleDateString()%></h6>
+                                    <% }) %>
+                                </div>
+                            </div>
+                             <%}%>
+                        </div>
+                    </div>
+                </div>                       
+            </div>
+          <% }else if(userType === "PetStore"){ %>
+            <div class="sidebar">
+                <div class="drop">
+                    <br>
+                    <a style="text-align: center;" href="/dogParent/logout">Logout</a>
+                    <br>
+                    <% if (visitor) { %>
+                        <br>
+                        <a style="text-align: center;" href="/dogParent/profile">Back To Profile</a>
+                        <br>
+                    <% } %>
+                    <br>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Parent
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <% if (nearByParents.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Parents found!!!</a></li>
+                            <% }else{ %>
+                            <% nearByParents.forEach(parent => { %>
+                                <li><a class="dropdown-item" href="/dogParent/profile/nearByParent/<%= parent._id %>"><h6>@<%= parent.username%></h6></a></li>
+                            <% }) %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Stores
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <% if (nearByStores.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No nearby Stores found!!!</a></li>
+                            <% }else{ %>
+                                <% nearByStores.forEach(store => { %>
+                           <li><a class="dropdown-item" href="/dogParent/profile/nearByStore/<%= store._id %>"><h6><%= store.storeName%></h6></a></li>
+                                    <% }) %>
+                                <% } %>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Trainers
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <% if (nearByTrainers.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Trainer found!!!</a></li>
+                                <% }else{ %>
+                                    <% nearByTrainers.forEach( trainer => { %>
+                                        <li><a class="dropdown-item" href="/dogParent/profile/:nearByTrainer/<%= trainer._id %>"><h6><%= trainer.trainingCenterName %></h6></a></li>
+                                <% }) %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Doctors
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <% if (nearByDoctors.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Doctor found!!!</a></li>
+                                <% }else{ %>
+                                    <% nearByDoctors.forEach( doctor => { %>
+                                        <li><a class="dropdown-item" href="/dogParent/profile/:nearByDoctor/<%= doctor._id %>"><h6><%= doctor.clinicName %></h6></a></li>
+                                 
+                                <% }) %>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="d-inline-block card"id="profile">
+                                <div id="profile-img-div">
+                                    <img src="/temp/<%= user.displayPicture %>" alt="profile-img" id="profile-img">
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title">@<%= user.storeName %></h3>
+                                    <h5 class="card-title"><%= user.ownerName %></h5>
+                                    <h5 class="card-title"><%= user.contactNo %></h5>
+                                    <p class="card-text"><%= user.houseNo %>, <%= user.street %></br><%= user.colony %>, <%= user.city %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row my-2">
+                                <h1 style="text-align: center;">Available Products.</h1>
+                                <% user.productListed.forEach((element) => { %>
+                                    <div class="col">
+                                        <div class="card" style="width: 20rem; margin-top: 10px;" id="dog-profile-2">
+                                            <div>
+                                                <div class="dog-img-div">
+                                                    <img src="/temp/<%= element.productImage %>" alt="profile-img" class="dog-img">
+                                                </div>
+                                                <div class="card-body dog-card-body">
+                                                    <h3 class="card-title"><%= element.productName%></h3>
+                                                    <p class="card-text %">₹<%= element.cost %></p>
+                                                    <p class="card-text">Mfg: <%= new Date(element.manufacturingDate).toLocaleDateString() %></p>
+                                                    <p>Exp: <%= new Date(element.expiryDate).toLocaleDateString() %></p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            <% }) %>
-                            <div class="row my-2">
+                                <% }) %>
                                 <div class="col">
-                                    <div class="card" style="width: 20rem;" id="dog-profile-3">
-                                        <% if (user.productListed.length===0) { %>
-                                            <a href="/petStore/addItem">Click to add Products.</a>
-                                        <% }else{ %>
-                                            <a href="/petStore/addItem">Click To add more Products.</a>
-                                            <% } %>
+                                    <div class="card" style="width: 20rem; margin-top: 10px;" id="dog-profile-3">
+                                        <a href="/dogParent/addDog">Click to Add Mora Products.</a>
                                     </div>
                                 </div>
                             </div>
@@ -252,37 +382,66 @@
           <% }else if(userType === "DogTrainer"){ %>
             <div class="sidebar">
                 <div class="drop">
+                    <a href="/dogParent/logout">Logout</a>
                     <div class="dropdown">
                         <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Near By Parent
                         </button>
                         <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <% if (nearByParents.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Parents found!!!</a></li>
+                            <% }else{ %>
+                            <% nearByParents.forEach(parent => { %>
+                                <li><a class="dropdown-item" href="/dogParent/profile/nearByParent/<%= parent._id %>"><h6>@<%= parent.username%></h6></a></li>
+                            <% }) %>
+                            <% } %>
                         </ul>
                     </div>
                     <div class="dropdown">
                         <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Near By Shops
+                            Near By Stores
                         </button>
                         <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <% if (nearByStores.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No nearby Stores found!!!</a></li>
+                            <% }else{ %>
+                                <% nearByStores.forEach(store => { %>
+                           <li><a class="dropdown-item" href="/dogParent/profile/nearByStore/<%= store._id %>"><h6><%= store.storeName%></h6></a></li>
+                                    <% }) %>
+                                <% } %>
                         </ul>
                     </div>
                     <div class="dropdown">
                         <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Near By Doctor
+                            Near By Trainers
                         </button>
                         <ul class="dropdown-menu menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <% if (nearByTrainers.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Trainer found!!!</a></li>
+                                <% }else{ %>
+                                    <% nearByTrainers.forEach( trainer => { %>
+                                        <li><a class="dropdown-item" href="/dogParent/profile/:nearByTrainer/<%= trainer._id %>"><h6><%= trainer.trainingCenterName %></h6></a></li>
+                                <% }) %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dd-btn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Near By Doctors
+                        </button>
+                        <ul class="dropdown-menu menu">
+                            <% if (nearByDoctors.length === 0) { %>
+                                <li><a class="dropdown-item" href="#">No near by Doctor found!!!</a></li>
+                                <% }else{ %>
+                                    <% nearByDoctors.forEach( doctor => { %>
+                                        <li><a class="dropdown-item" href="/dogParent/profile/:nearByDoctor/<%= doctor._id %>"><h6><%= doctor.clinicName %></h6></a></li>
+                                 
+                                <% }) %>
+                            <% } %>
                         </ul>
                     </div>
                 </div>

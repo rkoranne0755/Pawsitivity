@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const registerDogTrainer = asyncHandler(async (req, res) => {
+  console.log("Register Trainer Called\n");
   const {
     fullName,
     trainingCenterName,
@@ -17,7 +18,7 @@ const registerDogTrainer = asyncHandler(async (req, res) => {
     city,
     state,
     contactNo,
-    displayPicture
+    displayPicture,
   } = req.body;
 
   console.log("Trainer req.body Clear!!!", req.body);
@@ -35,7 +36,7 @@ const registerDogTrainer = asyncHandler(async (req, res) => {
     city,
     state,
     contactNo,
-    displayPicture
+    displayPicture,
   ].forEach((ele) => {
     console.log(ele);
     if (ele === "" || ele === undefined) {
@@ -53,7 +54,6 @@ const registerDogTrainer = asyncHandler(async (req, res) => {
     throw new ApiError(409, "Trainer with email exists!!!");
   }
 
-
   const trainer = await Trainer.create({
     fullName,
     trainingCenterName,
@@ -67,7 +67,7 @@ const registerDogTrainer = asyncHandler(async (req, res) => {
     city,
     state,
     contactNo,
-    displayPicture
+    displayPicture,
   });
 
   if (!trainer) {
@@ -78,10 +78,11 @@ const registerDogTrainer = asyncHandler(async (req, res) => {
 
   req.session.user = trainer;
 
-  return res.redirect("/dogTrainer/profile")
+  return res.redirect("/dogTrainer/profile");
 });
 
 const loginTrainer = asyncHandler(async (req, res) => {
+  console.log("Trainer Login Called\n");
   const { email, password } = req.body;
 
   if (!(email && password)) {
@@ -107,17 +108,26 @@ const loginTrainer = asyncHandler(async (req, res) => {
 
   req.session.user = dogTrainer;
 
-  return res.redirect("/dogTrainer/profile")
+  return res.redirect("/dogTrainer/profile");
 });
 
 const logoutTrainer = asyncHandler(async (req, res) => {
-  req.session.destroy( (err) => {
-    if(err){
+  console.log("Trainer logout Called!!\n");
+  req.session.destroy((err) => {
+    if (err) {
       console.log(err);
     }
-  })
+  });
 
-  return res.redirect("/")
+  return res.redirect("/");
 });
 
-export { registerDogTrainer, loginTrainer, logoutTrainer };
+const profileController = asyncHandler(async (req, res) => {
+  const user = await Trainer.find({ _id: req.session.user._id }).select("-password");
+
+  return res.render("profile", {
+    user,
+  });
+});
+
+export { registerDogTrainer, loginTrainer, logoutTrainer, profileController };

@@ -6,6 +6,7 @@ import {
 } from "../controllers/trainer.controller.js";
 import uploads from "../middlewares/multer.middleware.js";
 import { isAuth } from "../middlewares/isAuth.middleware.js";
+import { DogVeterinary } from "../models/dogVeterinary.model.js";
 
 const router = Router();
 
@@ -25,10 +26,7 @@ router
   })
   .post(loginTrainer);
 
-router.route("/profile").get(isAuth, (req, res) => {
-  
-  res.render("profile", { user: req.session.user, userType:"DogTrainer" });
-});
+router.route("/profile").get(isAuth, );
 
 router.route("/logout").get(logoutTrainer);
 
