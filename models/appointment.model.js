@@ -8,6 +8,7 @@ const appointmentSchema = new mongoose.Schema({
   dogName: {
     type: String,
   },
+  profileType: String,
   dogBreed: {
     type: String,
     required: true,
@@ -24,6 +25,6 @@ const appointmentSchema = new mongoose.Schema({
   },
 });
 
-const Appointment = mongoose.model("Appointment",appointmentSchema);
+const Appointment = mongoose.model("Appointment", appointmentSchema);
 
-export {Appointment}
+export { Appointment };

@@ -3,7 +3,7 @@ import { isAuth } from "../middlewares/isAuth.middleware.js";
 
 const router = Router();
 
-router.route("/").get( (req, res) => {
+router.route("/" ).get( (req, res) => {
     res.redirect("/loginProfilePage")
 })
 

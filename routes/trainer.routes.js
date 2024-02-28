@@ -3,6 +3,9 @@ import {
   registerDogTrainer,
   loginTrainer,
   logoutTrainer,
+  profileController,
+  visitedProfileController,
+  addAppointment
 } from "../controllers/trainer.controller.js";
 import uploads from "../middlewares/multer.middleware.js";
 import { isAuth } from "../middlewares/isAuth.middleware.js";
@@ -26,16 +29,13 @@ router
   })
   .post(loginTrainer);
 
-router.route("/profile").get(isAuth, );
+router.route("/profile").get(isAuth, profileController );
+
+router.route("/profile/:profileType/:id").
+get(isAuth, visitedProfileController)
 
 router.route("/logout").get(logoutTrainer);
 
-router.route("/addItem").get(
-  isAuth,
-  (req, res)=>{
-    console.log("Pet Store Add Item Reached!!!");
-    res.render("register",{userType:"AddItem"})
-  }
-)
+router.route("/addAppointment").post(isAuth, addAppointment)
 
 export default router;

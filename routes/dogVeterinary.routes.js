@@ -3,6 +3,8 @@ import {
   registerDogVeterinary,
   loginDogVeterinary,
   logoutDogVeterinary,
+  profileController,
+  visitorProfileController
 } from "../controllers/dogVeterinary.controllers.js";
 import uploads from "../middlewares/multer.middleware.js";
 import { isAuth } from "../middlewares/isAuth.middleware.js";
@@ -35,25 +37,9 @@ router
 
 router.route("/logout").get(logoutDogVeterinary);
 
-router.route("/profile").get(isAuth, async (req, res) => {
-  console.log("Doctor profile visited");
-  const user = await DogVeterinary.findById({ _id: req.session.user._id })
-    .populate("appointments")
-    .select("-password");
+router.route("/profile").get(isAuth, profileController);
 
-  const nearByDoctors = [];
-  const nearByParents = [];
-  const nearByTrainers = [];
-  const nearByStores = [];
-  // console.log(user);
-  res.render("profile", {
-    user,
-    userType: "DogVeterinary",
-    nearByDoctors,
-    nearByParents,
-    nearByStores,
-    nearByTrainers,
-  });
-});
+
+router.route("/profile/:profileType/:id").get(isAuth, visitorProfileController);
 
 export default router;

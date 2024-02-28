@@ -7,6 +7,7 @@ import {
   registerDogParent,
   profileController,
   visitedProfileController,
+  addAppointment,
 } from "../controllers/dogParent.controller.js";
 import uploads from "../middlewares/multer.middleware.js";
 import { isAuth } from "../middlewares/isAuth.middleware.js";
@@ -59,7 +60,7 @@ router.route("/refresh-token").post(refreshAccessToken);
 
 router.route("/profile").get(isAuth, profileController);
 
-router.route("/profile/:userType/:id").get(isAuth, visitedProfileController);
+router.route("/profile/:profileType/:id").get(isAuth, visitedProfileController);
 
 router
   .route("/addDog")
@@ -67,5 +68,7 @@ router
     res.render("register", { userType: "AddDog" });
   })
   .post(isAuth, uploads.single("displayPicture"), addDog);
+
+router.route("/addAppointment").post(isAuth, addAppointment);
 
 export default router;

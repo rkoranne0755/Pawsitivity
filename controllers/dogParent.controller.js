@@ -5,6 +5,7 @@ import { Trainer } from "../models/trainer.model.js";
 import { PetStore } from "../models/petStore.model.js";
 import { DogVeterinary } from "../models/dogVeterinary.model.js";
 import { Dogs } from "../models/dog.model.js";
+import { Appointment } from "../models/appointment.model.js";
 
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -312,6 +313,8 @@ const profileController = asyncHandler(async (req, res) => {
     .select("-password");
   console.log("\n Parent Profile Visited\n");
 
+  const profileType = "Parent";
+
   const nearByParents = await DogParent.find({
     $and: [
       {
@@ -354,7 +357,8 @@ const profileController = asyncHandler(async (req, res) => {
 
   return res.render("profile", {
     user: parent,
-    userType: "DogParent",
+    userType: "dogParent",
+    profileType,
     nearByParents,
     nearByTrainers,
     nearByDoctors,
@@ -365,7 +369,8 @@ const profileController = asyncHandler(async (req, res) => {
 
 const visitedProfileController = asyncHandler(async (req, res) => {
   const _id = req.params.id;
-  const userType = req.params.userType;
+  const profileType = req.params.profileType;
+  console.log(profileType);
 
   const nearByDoctors = await DogVeterinary.find({
     $and: [
@@ -416,8 +421,8 @@ const visitedProfileController = asyncHandler(async (req, res) => {
     ],
   }).select("_id trainingCenterName");
 
-  switch (userType) {
-    case "DogParent":
+  switch (profileType) {
+    case "Parent":
       const parent = await DogParent.find({ _id })
         .populate("dogs")
         .select("-password -contactNo");
@@ -432,7 +437,8 @@ const visitedProfileController = asyncHandler(async (req, res) => {
 
       return res.render("profile", {
         user: parent[0],
-        userType,
+        userType: "dogParent",
+        profileType,
         nearByDoctors,
         nearByParents: filteredNearByParent,
         nearByStores,
@@ -441,12 +447,14 @@ const visitedProfileController = asyncHandler(async (req, res) => {
       });
       break;
 
-    case "PetStore":
+    case "Store":
       const store = await PetStore.find({
         _id,
       })
-      .populate("productListed")
-      .select("-password");
+        .populate("productListed")
+        .select("-password");
+
+      console.log("Pet Store Case Reached!!");
 
       const filteredNearByStore = nearByStores.filter(
         (item) => item._id.toString() !== store[0]._id.toString()
@@ -454,7 +462,8 @@ const visitedProfileController = asyncHandler(async (req, res) => {
 
       return res.render("profile", {
         user: store[0],
-        userType,
+        userType: "dogParent",
+        profileType,
         nearByDoctors,
         nearByParents,
         nearByTrainers,
@@ -464,9 +473,134 @@ const visitedProfileController = asyncHandler(async (req, res) => {
 
       break;
 
+    case "Trainer":
+      let user = await Trainer.find({
+        _id,
+      }).select("-password");
+
+      user = user[0];
+
+      const filteredNearByTrainers = nearByTrainers.filter(
+        (item) => item._id.toString() !== user._id.toString()
+      );
+
+      return res.render("profile", {
+        user,
+        userType: "dogTrainer",
+        profileType,
+        nearByDoctors,
+        nearByParents,
+        nearByStores,
+        nearByTrainers: filteredNearByTrainers,
+        visitor: true,
+      });
+      break;
+
+    case "Veterinary":
+      let vet = await DogVeterinary.find({
+        _id,
+      }).select("-password");
+
+      vet = vet[0];
+
+      const filteredNearByDoctors = nearByDoctors.filter(
+        (item) => item._id.toString() !== vet._id.toString()
+      );
+
+      return res.render("profile", {
+        user: vet,
+        userType: "dogParent",
+        profileType,
+        nearByDoctors: filteredNearByDoctors,
+        nearByParents,
+        nearByStores,
+        nearByTrainers,
+        visitor: true,
+        _id,
+      });
+      break;
+
     default:
+      // return res.send("Fat Gya Land !!!\n<a href=" / ">LE LE MERA</a>");
       break;
   }
+});
+
+const addAppointment = asyncHandler(async (req, res) => {
+  console.log("Add appointment called", req.body);
+
+  const user = await DogParent.findById({ _id: req.session.user._id })
+    .populate("dogs")
+    .select("-password");
+  console.log(user);
+
+  const { dogParentName, dogName, dogBreed, appointmentDate, reason, drId } =
+    req.body;
+
+  const appointment = await Appointment.create({
+    dogParentName,
+    dogName,
+    dogBreed,
+    profileType: "Parent",
+    appointmentDate,
+    reason,
+  });
+
+  if (!appointment) {
+    throw new ApiError(500, "Error while creating Appointment");
+  }
+
+  const vet = await DogVeterinary.findById({ _id: drId });
+  vet.appointments.push(appointment._id);
+  await vet.save();
+
+  const nearByDoctors = await DogVeterinary.find({
+    $or: [
+      { street: req.session.user.street },
+      { colony: req.session.user.colony },
+    ],
+  });
+
+  const nearByParents = await DogParent.find({
+    $and: [
+      {
+        $or: [
+          { street: req.session.user.street },
+          { colony: req.session.user.colony },
+        ],
+      },
+      {
+        _id: { $ne: req.session.user._id },
+      },
+    ],
+  });
+
+  const nearByStores = await PetStore.find({
+    $or: [
+      { street: req.session.user.street },
+      { colony: req.session.user.colony },
+    ],
+  });
+
+  const nearByTrainers = await Trainer.find({
+    $or: [
+      { street: req.session.user.street },
+      { colony: req.session.user.colony },
+    ],
+  });
+
+  console.log(user[0]);
+
+  return res.render("profile", {
+    user,
+    userType: "dogParent",
+    profileType: "Parent",
+    nearByDoctors,
+    nearByParents,
+    nearByStores,
+    nearByTrainers,
+    visitor: false,
+  });
 });
 
 export {
@@ -477,4 +611,5 @@ export {
   addDog,
   profileController,
   visitedProfileController,
+  addAppointment,
 };

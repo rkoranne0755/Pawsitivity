@@ -4,6 +4,9 @@ import {
   loginPetStore,
   logoutPetStore,
   addProduct,
+  profileController,
+  visitorProfileController,
+  makeAppointment,
 } from "../controllers/petStore.controller.js";
 import uploads from "../middlewares/multer.middleware.js";
 import { isAuth } from "../middlewares/isAuth.middleware.js";
@@ -27,22 +30,20 @@ router
   })
   .post(loginPetStore);
 
-router.route("/profile").get(isAuth, async (req, res) => {
-  let petStore = await PetStore.findById({_id:req.session.user._id}).populate("productListed")
-  res.render("profile", { user: petStore, userType:"PetStore" });
-});
+router.route("/profile").get(isAuth, profileController);
 
-router.route("/addItem").get(
-  isAuth,
-  (req, res)=>{
+router.route("/profile/:profileType/:id").get(isAuth, visitorProfileController);
+
+router
+  .route("/addItem")
+  .get(isAuth, (req, res) => {
     console.log(req.session.user);
-    res.render("register",{userType:"AddItem"})
-  }
-)
-.post(isAuth,
-  uploads.single("productImage"),
-  addProduct)
+    res.render("register", { userType: "AddItem" });
+  })
+  .post(isAuth, uploads.single("productImage"), addProduct);
 
-router.route("/logout").get(isAuth,logoutPetStore);
+router.route("/logout").get(isAuth, logoutPetStore);
+
+router.route("/addAppointment").post(isAuth, makeAppointment);
 
 export default router;
